@@ -1,0 +1,64 @@
+name: Perks
+version: '${project.version}'
+main: com.rappytv.perks.Perks
+api-version: '1.19'
+softdepend:
+  - Vault
+
+commands:
+  perks:
+    aliases: [ perk ]
+    permission: esntls.perks
+
+permissions:
+  perks.*:
+    default: op
+    children:
+      perks.reload:
+        default: op
+      perks.command:
+        default: true
+      perks.xpboost:
+        default: op
+      perks.haste:
+        default: op
+      perks.morehearts:
+        default: op
+      perks.jumpboost:
+        default: op
+      perks.speedboost:
+        default: op
+      perks.strengthboost:
+        default: op
+      perks.blazeimmunity:
+        default: op
+      perks.creeperimmunity:
+        default: op
+      perks.endermanimmunity:
+        default: op
+      perks.ghastimmunity:
+        default: op
+      perks.skeletonimmunity:
+        default: op
+      perks.spiderimmunity:
+        default: op
+      perks.zombieimmunity:
+        default: op
+      perks.glow:
+        default: op
+      perks.keepxp:
+        default: op
+      perks.keepinventory:
+        default: op
+      perks.nightvision:
+        default: op
+      perks.fireprotection:
+        default: op
+      perks.nodrowning:
+        default: op
+      perks.nofalldamage:
+        default: op
+      perks.protection:
+        default: op
+      perks.nohunger:
+        default: op
