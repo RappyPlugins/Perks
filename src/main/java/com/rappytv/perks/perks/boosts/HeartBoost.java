@@ -1,10 +1,11 @@
 package com.rappytv.perks.perks.boosts;
 
-import com.rappytv.essentials.perks.Perk;
+import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("deprecation")
 public class HeartBoost extends Perk {
 
     public HeartBoost() {

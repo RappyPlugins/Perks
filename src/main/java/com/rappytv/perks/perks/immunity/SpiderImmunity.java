@@ -1,6 +1,6 @@
 package com.rappytv.perks.perks.immunity;
 
-import com.rappytv.essentials.perks.Perk;
+import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
