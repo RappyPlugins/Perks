@@ -6,7 +6,6 @@ import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.util.SpinManager;
 import com.rappytv.perks.util.Util;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
