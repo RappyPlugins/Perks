@@ -1,6 +1,7 @@
 package com.rappytv.perks.perks;
 
 import com.rappytv.perks.config.PlayerData;
+import com.rappytv.perks.util.Util;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -78,7 +79,7 @@ public abstract class Perk {
             data = PlayerData.create(player);
             data.save();
         }
-        if(!player.hasPermission("esntls.perks." + id))
+        if(!data.getUnlockedPerks().contains(id))
             return new Pane(Pane.Type.NOPERMISSION);
         return new Pane(data.getActivePerks().contains(id) ? Pane.Type.ACTIVATED : Pane.Type.DEACTIVATED);
     }
@@ -100,16 +101,16 @@ public abstract class Perk {
             String title;
             String description = switch (type) {
                 case ACTIVATED -> {
-                    title = "§aAktiviert";
-                    yield "§bKlicke zum §cdeaktivieren§b!";
+                    title = Util.message("pane.activated.title");
+                    yield Util.message("pane.activated.description");
                 }
                 case DEACTIVATED -> {
-                    title = "§cDeaktiviert";
-                    yield "§bKlicke zum §aaktivieren§b!";
+                    title = Util.message("pane.deactivated.title");
+                    yield Util.message("pane.deactivated.description");
                 }
                 case NOPERMISSION -> {
-                    title = "§cNicht freigeschaltet";
-                    yield "§bDu hast dieses Perk noch nicht freigeschaltet!";
+                    title = Util.message("pane.noPermission.title");
+                    yield Util.message("pane.noPermission.description");
                 }
                 case DECORATION -> {
                     title = "§e";

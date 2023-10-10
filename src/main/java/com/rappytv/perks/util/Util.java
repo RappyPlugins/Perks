@@ -1,6 +1,7 @@
 package com.rappytv.perks.util;
 
 import com.rappytv.perks.Perks;
+import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.listeners.InventoryListener;
 import com.rappytv.perks.perks.Perk;
 import net.milkbowl.vault.economy.Economy;
@@ -25,6 +26,9 @@ public class Util {
     }
 
     public static void openPerkGUI(Perks plugin, Player player, int page) {
+        PlayerData data = PlayerData.get(player);
+        if(data == null) data = PlayerData.create(player).save();
+
         Inventory inventory = Bukkit.createInventory(null, 36, message("menuTitle"));
         InventoryListener.pages.put(player, page);
         int perkIndex = 0;
@@ -45,7 +49,8 @@ public class Util {
                 arrow.setItemMeta(meta);
                 inventory.setItem(i, arrow);
             } else if(i == 31) {
-                boolean hasAllPerks = Perk.perks.stream().allMatch((perk -> player.hasPermission("perks." + perk.getId())));
+                final PlayerData finalData = data;
+                boolean hasAllPerks = Perk.perks.stream().allMatch((perk -> finalData.getUnlockedPerks().contains(perk.getId())));
 
                 Economy economy = plugin.getEconomy();
 

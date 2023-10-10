@@ -1,12 +1,14 @@
 package com.rappytv.perks.listeners;
 
 import com.rappytv.perks.Perks;
+import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.util.SpinManager;
 import com.rappytv.perks.util.Util;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,14 +35,14 @@ public class InventoryListener implements Listener {
         Inventory inventory = event.getClickedInventory();
         if(inventory == null) return;
 
-        if(event.getView().getTitle().equals("§5Perk freischalten")) {
+        if(event.getView().getTitle().equals(Util.message("buyPerkTitle"))) {
             if(inventory == event.getView().getBottomInventory()) return;
             event.setCancelled(true);
             ItemStack item = event.getCurrentItem();
             if(item == null) return;
             if(item.getType() == Material.ARROW)
                 Util.openPerkGUI(plugin, player, 0);
-        } else if(event.getView().getTitle().equals("§bPerks")) {
+        } else if(event.getView().getTitle().equals(Util.message("menuTitle"))) {
             if(inventory == event.getView().getBottomInventory()) return;
             event.setCancelled(true);
             ItemStack item = event.getCurrentItem();
@@ -76,36 +78,41 @@ public class InventoryListener implements Listener {
 
                 if(!economy.has(player, price)) {
                     player.closeInventory();
-                    player.sendMessage(Perks.prefix + "§cDu hast nicht genug Geld!");
+                    player.sendMessage(Perks.prefix + Util.message("notEnoughMoney"));
                     return;
                 }
 
                 if(perkPlayers.contains(player.getUniqueId())) {
-                    player.sendMessage(Perks.prefix + "§cDu schaltest gerade bereits ein Perk frei!");
+                    player.sendMessage(Perks.prefix + Util.message("alreadyUnlockingPerk"));
                     player.closeInventory();
                     return;
                 }
                 perkPlayers.add(player.getUniqueId());
 
+                PlayerData data = PlayerData.get(player);
+                if(data == null) data = PlayerData.create(player).save();
+                PlayerData finalData = data;
+
                 List<Perk> perks = Perk.perks;
-                boolean hasAllPerks = perks.stream().allMatch((perk -> player.hasPermission("esntls.perks." + perk.getId())));
+                boolean hasAllPerks = perks.stream().allMatch((perk) -> finalData.getUnlockedPerks().contains(perk.getId()));
 
                 if(hasAllPerks) {
                     player.closeInventory();
-                    player.sendMessage(Perks.prefix + "§cDu hast bereits alle Perks!");
+                    player.sendMessage(Perks.prefix + Util.message("alreadyAllPerks"));
                     return;
                 }
 
                 perks = perks
                         .stream()
-                        .filter((perk -> !player.hasPermission("esntls.perks." + perk.getId())))
+                        .filter((perk) -> !finalData.getUnlockedPerks().contains(perk.getId()))
                         .collect(Collectors.toList());
 
                 economy.withdrawPlayer(player, price);
                 if(perks.size() == 1) {
                     Perk perk = perks.get(0);
                     perkPlayers.remove(player.getUniqueId());
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set esntls.perks." + perk.getId());
+                    player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                    perk.unlockFor(player);
                     player.sendMessage(Perks.prefix + Util.message("perkUnlocked", perk.getName()));
                     player.closeInventory();
                     return;

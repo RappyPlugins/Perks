@@ -85,11 +85,12 @@ public class PlayerData {
         return new File(folder, uuid.toString() + ".yml").exists();
     }
 
-    public void save() {
+    public PlayerData save() {
         try {
             config.save(file);
         } catch (IOException ignored) {
         }
+        return this;
     }
 
     public String getName() {
