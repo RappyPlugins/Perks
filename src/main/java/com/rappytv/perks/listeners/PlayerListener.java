@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class PlayerListener implements Listener {
 
