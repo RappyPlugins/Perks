@@ -14,6 +14,19 @@ messages:
   buyPerkTitle: "§5Perk freischalten"
   error: "§cEin Fehler ist aufgetreten!"
   perkUnlocked: "Du hast das §b%s §7Perk freigeschaltet!"
+  notEnoughMoney: "§cDu hast nicht genug Geld!"
+  alreadyUnlockingPerk: "§cDu schaltest gerade bereits ein Perk frei!"
+  alreadyAllPerks: "§cDu hast bereits alle Perks!"
+  pane:
+    activated:
+      title: "§aAktiviert"
+      decoration: "§bKlicke zum §cdeaktivieren§b!"
+    deactivated:
+      title: "§cDeaktiviert"
+      decoration: "§bKlicke zum §aaktivieren§b!"
+    noPermission:
+      title: "§cNicht freigeschaltet"
+      decoration: "§bDu hast dieses Perk noch nicht freigeschaltet!"
 
 economy:
   buyable: true
