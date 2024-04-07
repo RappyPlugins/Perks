@@ -1,19 +1,23 @@
-messages:
-  prefix: "§bPerks §8» §7"
-  console: "§cDie Konsole darf diesen Befehl nicht ausführen!"
-  noPermission: "§cDir fehlt die Berechtigung §b%s§c!"
+economy:
+  buyable: true
+  price: 300000
+
+perks:
+  xpboostMultiplier: 2.5
+
+i18n:
   back: "§7Zurück"
   continue: "§7Weiter"
   menuTitle: "§bPerks"
   allPerks: "§aDu hast alle Perks!"
-  buyPerkLore:
-    - "§7Erhalte ein Zufälliges Perk, welches du für immer behältst."
-    - ""
-    - "§7Preis: §b%s"
+  buyPerkLore: |-
+    §7Erhalte ein Zufälliges Perk, welches du für immer behältst.
+    
+    §7Preis: §b<price>
   buyPerk: "§aPerk kaufen"
   buyPerkTitle: "§5Perk freischalten"
   error: "§cEin Fehler ist aufgetreten!"
-  perkUnlocked: "Du hast das §b%s §7Perk freigeschaltet!"
+  perkUnlocked: "Du hast das §b<perk> §7Perk freigeschaltet!"
   notEnoughMoney: "§cDu hast nicht genug Geld!"
   alreadyUnlockingPerk: "§cDu schaltest gerade bereits ein Perk frei!"
   alreadyAllPerks: "§cDu hast bereits alle Perks!"
@@ -27,10 +31,3 @@ messages:
     noPermission:
       title: "§cNicht freigeschaltet"
       decoration: "§bDu hast dieses Perk noch nicht freigeschaltet!"
-
-economy:
-  buyable: true
-  price: 300000
-
-perks:
-  xpboostMultiplier: 2.5
