@@ -6,28 +6,28 @@ perks:
   xpboostMultiplier: 2.5
 
 i18n:
-  back: "§7Zurück"
-  continue: "§7Weiter"
-  menuTitle: "§bPerks"
-  allPerks: "§aDu hast alle Perks!"
+  back: "&7Zurück"
+  continue: "&7Weiter"
+  menuTitle: "&bPerks"
+  allPerks: "&aDu hast alle Perks!"
   buyPerkLore: |-
-    §7Erhalte ein Zufälliges Perk, welches du für immer behältst.
+    &7Erhalte ein Zufälliges Perk, welches du für immer behältst.
     
-    §7Preis: §b<price>
-  buyPerk: "§aPerk kaufen"
-  buyPerkTitle: "§5Perk freischalten"
-  error: "§cEin Fehler ist aufgetreten!"
-  perkUnlocked: "Du hast das §b<perk> §7Perk freigeschaltet!"
-  notEnoughMoney: "§cDu hast nicht genug Geld!"
-  alreadyUnlockingPerk: "§cDu schaltest gerade bereits ein Perk frei!"
-  alreadyAllPerks: "§cDu hast bereits alle Perks!"
+    &7Preis: &b<price>
+  buyPerk: "&aPerk kaufen"
+  buyPerkTitle: "&5Perk freischalten"
+  error: "<prefix> &cEin Fehler ist aufgetreten!"
+  perkUnlocked: "<prefix> Du hast das &b<perk> &7Perk freigeschaltet!"
+  notEnoughMoney: "<prefix> &cDu hast nicht genug Geld!"
+  alreadyUnlockingPerk: "<prefix> &cDu schaltest gerade bereits ein Perk frei!"
+  alreadyAllPerks: "<prefix> &cDu hast bereits alle Perks!"
   pane:
     activated:
-      title: "§aAktiviert"
-      decoration: "§bKlicke zum §cdeaktivieren§b!"
+      title: "&aAktiviert"
+      decoration: "&bKlicke zum &cdeaktivieren&b!"
     deactivated:
-      title: "§cDeaktiviert"
-      decoration: "§bKlicke zum §aaktivieren§b!"
+      title: "&cDeaktiviert"
+      decoration: "&bKlicke zum &aaktivieren&b!"
     noPermission:
-      title: "§cNicht freigeschaltet"
-      decoration: "§bDu hast dieses Perk noch nicht freigeschaltet!"
+      title: "&cNicht freigeschaltet"
+      decoration: "&bDu hast dieses Perk noch nicht freigeschaltet!"
