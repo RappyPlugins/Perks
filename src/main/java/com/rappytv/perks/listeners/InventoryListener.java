@@ -5,6 +5,7 @@ import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.util.SpinManager;
 import com.rappytv.perks.util.Util;
+import com.rappytv.rylib.util.I18n;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -34,14 +35,14 @@ public class InventoryListener implements Listener {
         Inventory inventory = event.getClickedInventory();
         if(inventory == null) return;
 
-        if(event.getView().getTitle().equals(Util.message("buyPerkTitle"))) {
+        if(event.getView().getTitle().equals(plugin.i18n().translate("buyPerkTitle"))) {
             if(inventory == event.getView().getBottomInventory()) return;
             event.setCancelled(true);
             ItemStack item = event.getCurrentItem();
             if(item == null) return;
             if(item.getType() == Material.ARROW)
                 Util.openPerkGUI(plugin, player, 0);
-        } else if(event.getView().getTitle().equals(Util.message("menuTitle"))) {
+        } else if(event.getView().getTitle().equals(plugin.i18n().translate("menuTitle"))) {
             if(inventory == event.getView().getBottomInventory()) return;
             event.setCancelled(true);
             ItemStack item = event.getCurrentItem();
@@ -77,12 +78,12 @@ public class InventoryListener implements Listener {
 
                 if(!economy.has(player, price)) {
                     player.closeInventory();
-                    player.sendMessage(Perks.prefix + Util.message("notEnoughMoney"));
+                    player.sendMessage(plugin.i18n().translate("notEnoughMoney"));
                     return;
                 }
 
                 if(perkPlayers.contains(player.getUniqueId())) {
-                    player.sendMessage(Perks.prefix + Util.message("alreadyUnlockingPerk"));
+                    player.sendMessage(plugin.i18n().translate("alreadyUnlockingPerk"));
                     player.closeInventory();
                     return;
                 }
@@ -97,7 +98,7 @@ public class InventoryListener implements Listener {
 
                 if(hasAllPerks) {
                     player.closeInventory();
-                    player.sendMessage(Perks.prefix + Util.message("alreadyAllPerks"));
+                    player.sendMessage(plugin.i18n().translate("alreadyAllPerks"));
                     return;
                 }
 
@@ -112,7 +113,10 @@ public class InventoryListener implements Listener {
                     perkPlayers.remove(player.getUniqueId());
                     player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                     perk.unlockFor(player);
-                    player.sendMessage(Perks.prefix + Util.message("perkUnlocked", perk.getName()));
+                    player.sendMessage(plugin.i18n().translate(
+                            "perkUnlocked",
+                            new I18n.Argument("perk", perk.getName())
+                    ));
                     player.closeInventory();
                     return;
                 }

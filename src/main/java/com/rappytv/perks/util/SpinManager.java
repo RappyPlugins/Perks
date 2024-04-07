@@ -2,6 +2,7 @@ package com.rappytv.perks.util;
 
 import com.rappytv.perks.Perks;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.rylib.util.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -27,7 +28,7 @@ public class SpinManager {
     public SpinManager(Player player, List<Perk> perks, Perks plugin) {
         this.player = player;
         this.perks = perks;
-        this.inventory = Bukkit.createInventory(null, 27, Util.message("buyPerkTitle"));
+        this.inventory = Bukkit.createInventory(null, 27, plugin.i18n().translate("buyPerkTitle"));
         this.plugin = plugin;
     }
 
@@ -81,19 +82,22 @@ public class SpinManager {
                         Optional<Perk> optionalPerk = perks.stream().filter((p -> p.getItem().equals(item))).findFirst();
 
                         if(optionalPerk.isEmpty()) {
-                            player.sendMessage(Perks.prefix + Util.message("error"));
+                            player.sendMessage(plugin.i18n().translate("error"));
                             return;
                         }
                         Perk perk = optionalPerk.get();
 
                         ItemStack arrow = new ItemStack(Material.ARROW);
                         ItemMeta meta = arrow.getItemMeta();
-                        meta.setDisplayName(Util.message("back"));
+                        meta.setDisplayName(plugin.i18n().translate("back"));
                         arrow.setItemMeta(meta);
                         inventory.setItem(18, arrow);
                         player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                         perk.unlockFor(player);
-                        player.sendMessage(Perks.prefix + Util.message("perkUnlocked", perk.getName()));
+                        player.sendMessage(plugin.i18n().translate(
+                                "perkUnlocked",
+                                new I18n.Argument("perk", perk.getName())
+                        ));
                         runnable.run();
                         cancel();
                     } else player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);

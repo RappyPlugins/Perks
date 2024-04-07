@@ -4,9 +4,9 @@ import com.rappytv.perks.Perks;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.listeners.InventoryListener;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.rylib.util.I18n;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -14,22 +14,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class Util {
 
-    public static String message(String key, Object... objects) {
-        String message = Perks.messages.getString(key);
-        if(message == null) return key;
-        return String.format(ChatColor.translateAlternateColorCodes('&', message), objects);
-    }
-
     public static void openPerkGUI(Perks plugin, Player player, int page) {
         PlayerData data = PlayerData.get(player);
         if(data == null) data = PlayerData.create(player).save();
 
-        Inventory inventory = Bukkit.createInventory(null, 36, message("menuTitle"));
+        Inventory inventory = Bukkit.createInventory(null, 36, plugin.i18n().translate("menuTitle"));
         InventoryListener.pages.put(player, page);
         int perkIndex = 0;
         perkIndex += page * 7;
@@ -45,7 +40,7 @@ public class Util {
             } else if(i == 29 || i == 33) {
                 ItemStack arrow = new ItemStack(Material.ARROW);
                 ItemMeta meta = arrow.getItemMeta();
-                meta.setDisplayName(i == 29 ? message("back") : message("continue"));
+                meta.setDisplayName(i == 29 ? plugin.i18n().translate("back") : plugin.i18n().translate("continue"));
                 arrow.setItemMeta(meta);
                 inventory.setItem(i, arrow);
             } else if(i == 31) {
@@ -59,16 +54,17 @@ public class Util {
                 if(hasAllPerks) {
                     item = new ItemStack(Material.DIAMOND_BLOCK);
                     meta = item.getItemMeta();
-                    meta.setDisplayName(message("allPerks"));
+                    meta.setDisplayName(plugin.i18n().translate("allPerks"));
                     item.setItemMeta(meta);
                 } else if(economy != null) {
                     item = new ItemStack(Material.GOLD_BLOCK);
                     meta = item.getItemMeta();
-                    List<String> lore = new ArrayList<>();
-                    for(String message : Perks.messages.getStringList("messages.buyPerkLore")) {
-                        lore.add(ChatColor.translateAlternateColorCodes('&', String.format(message, economy.format(plugin.getConfig().getDouble("economy.perks")))));
-                    }
-                    meta.setDisplayName(message("buyPerk"));
+                    String loreString = plugin.i18n().translate(
+                            "messages.buyPerkLore",
+                            new I18n.Argument("price", economy.format(plugin.getConfig().getDouble("economy.perks")))
+                    );
+                    List<String> lore = new ArrayList<>(Arrays.asList(loreString.split("\n")));
+                    meta.setDisplayName(plugin.i18n().translate("buyPerk"));
                     meta.setLore(lore);
                 }
 
