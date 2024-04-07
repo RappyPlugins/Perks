@@ -2,13 +2,15 @@ name: Perks
 version: '${project.version}'
 main: com.rappytv.perks.PerkPlugin
 api-version: '1.19'
+depend:
+  - RyLib
 softdepend:
   - Vault
 
 commands:
   perks:
     aliases: [ perk ]
-    permission: esntls.perks
+    permission: perks.command
 
 permissions:
   perks.*:
