@@ -2,41 +2,35 @@ package com.rappytv.perks.command;
 
 import com.rappytv.perks.Perks;
 import com.rappytv.perks.util.Util;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import com.rappytv.rylib.RyLib;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 
-public class PerkCommand implements CommandExecutor, TabExecutor {
+public class PerkCommand extends com.rappytv.rylib.util.Command<Perks> {
 
-    private final Perks plugin;
-
-    public PerkCommand(Perks plugin) {
-        this.plugin = plugin;
+    public PerkCommand(String name, Perks plugin) {
+        super(name, plugin);
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public void execute(CommandSender sender, String prefix, String[] args) {
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(Perks.prefix + Util.message("console"));
-            return false;
+            sender.sendMessage(RyLib.get().i18n().translate("onlyPlayer"));
+            return;
         }
 
         if(!player.hasPermission("perks.command")) {
-            player.sendMessage(Perks.prefix + Util.message("noPermission", "perks.command"));
-            return false;
+            player.sendMessage(RyLib.get().i18n().translate("noPermission"));
+            return;
         }
 
         Util.openPerkGUI(plugin, player, 0);
-        return true;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return Collections.emptyList();
+    public List<String> complete(CommandSender sender, String prefix, String[] args) {
+        return null;
     }
 }
