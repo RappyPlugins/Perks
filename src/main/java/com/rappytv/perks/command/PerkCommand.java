@@ -1,6 +1,6 @@
 package com.rappytv.perks.command;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.util.Util;
 import com.rappytv.rylib.RyLib;
 import org.bukkit.command.CommandSender;
@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class PerkCommand extends com.rappytv.rylib.util.Command<Perks> {
+public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
 
-    public PerkCommand(String name, Perks plugin) {
+    public PerkCommand(String name, PerkPlugin plugin) {
         super(name, plugin);
     }
 

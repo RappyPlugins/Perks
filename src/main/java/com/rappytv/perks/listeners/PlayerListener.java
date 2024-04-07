@@ -1,6 +1,6 @@
 package com.rappytv.perks.listeners;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.entity.Player;
@@ -17,9 +17,9 @@ import java.util.Set;
 
 public class PlayerListener implements Listener {
 
-    private final Perks plugin;
+    private final PerkPlugin plugin;
 
-    public PlayerListener(Perks plugin) {
+    public PlayerListener(PerkPlugin plugin) {
         this.plugin = plugin;
     }
 

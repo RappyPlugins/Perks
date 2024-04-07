@@ -1,6 +1,6 @@
 package com.rappytv.perks.util;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.listeners.InventoryListener;
 import com.rappytv.perks.perks.Perk;
@@ -20,7 +20,7 @@ import java.util.List;
 @SuppressWarnings("ConstantConditions")
 public class Util {
 
-    public static void openPerkGUI(Perks plugin, Player player, int page) {
+    public static void openPerkGUI(PerkPlugin plugin, Player player, int page) {
         PlayerData data = PlayerData.get(player);
         if(data == null) data = PlayerData.create(player).save();
 

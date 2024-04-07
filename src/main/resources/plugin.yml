@@ -1,6 +1,6 @@
 name: Perks
 version: '${project.version}'
-main: com.rappytv.perks.Perks
+main: com.rappytv.perks.PerkPlugin
 api-version: '1.19'
 softdepend:
   - Vault

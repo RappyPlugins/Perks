@@ -20,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import javax.annotation.Nullable;
 import java.io.File;
 
-public class Perks extends JavaPlugin {
+public class PerkPlugin extends JavaPlugin {
 
     public static File dataFolder;
     private I18n i18n;

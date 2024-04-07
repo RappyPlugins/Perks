@@ -1,6 +1,6 @@
 package com.rappytv.perks.listeners;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.util.SpinManager;
@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 
 public class InventoryListener implements Listener {
 
-    private final Perks plugin;
+    private final PerkPlugin plugin;
     public static final Map<Player, Integer> pages = new HashMap<>();
     private final Set<UUID> perkPlayers = new HashSet<>();
 
-    public InventoryListener(Perks plugin) {
+    public InventoryListener(PerkPlugin plugin) {
         this.plugin = plugin;
     }
 

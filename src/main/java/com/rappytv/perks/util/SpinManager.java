@@ -1,6 +1,6 @@
 package com.rappytv.perks.util;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.perks.Perk;
 import com.rappytv.rylib.util.I18n;
 import org.bukkit.Bukkit;
@@ -22,10 +22,10 @@ public class SpinManager {
     private final Player player;
     private final Inventory inventory;
     private final List<Perk> perks;
-    private final Perks plugin;
+    private final PerkPlugin plugin;
     private int itemIndex = 0;
 
-    public SpinManager(Player player, List<Perk> perks, Perks plugin) {
+    public SpinManager(Player player, List<Perk> perks, PerkPlugin plugin) {
         this.player = player;
         this.perks = perks;
         this.inventory = Bukkit.createInventory(null, 27, plugin.i18n().translate("buyPerkTitle"));
