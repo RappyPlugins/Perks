@@ -9,33 +9,36 @@ import com.rappytv.perks.perks.misc.KeepExperience;
 import com.rappytv.perks.perks.misc.KeepInventory;
 import com.rappytv.perks.perks.misc.NightVision;
 import com.rappytv.perks.perks.protection.*;
+import com.rappytv.rylib.util.I18n;
+import com.rappytv.rylib.util.UpdateChecker;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
 import java.io.File;
-import java.util.Objects;
 
-public final class Perks extends JavaPlugin {
+public class Perks extends JavaPlugin {
 
-    public static String prefix;
-    public static ConfigurationSection messages;
     public static File dataFolder;
+    private I18n i18n;
     private Economy economy;
 
     @Override
     public void onEnable() {
-        // Load prefix
-        String prfx = getConfig().getString("messages.prefix");
-        if(prfx == null) {
-            getLogger().severe("Prefix is not set!");
-            prefix = "§bPerks §8» §7";
-        } else prefix = ChatColor.translateAlternateColorCodes('&', prfx);
+        saveDefaultConfig();
+        i18n = new I18n(this);
+        new UpdateChecker<>(
+                this,
+                () -> getConfig().getBoolean("checkForUpdates")
+        ).setArtifactFormat(
+                "ci.rappytv.com",
+                getName(),
+                "com.rappytv",
+                "Minecraft Plugins"
+        );
 
         // Setup economy
         if(getServer().getPluginManager().getPlugin("Vault") != null) {
@@ -46,22 +49,20 @@ public final class Perks extends JavaPlugin {
             getLogger().info("Vault is not installed. Economy options won't be available.");
         }
 
-        // Load messages
-        messages = getConfig().getConfigurationSection("messages");
-
         // Register perks
         registerPerks();
 
         // Set data folder
         dataFolder = getDataFolder();
 
-        Objects.requireNonNull(getCommand("perks")).setExecutor(new PerkCommand(this));
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new InventoryListener(this), this);
+        new PerkCommand("perks", this);
     }
 
-    @Override
-    public void onDisable() {}
+    public I18n i18n() {
+        return i18n;
+    }
 
     @Nullable
     public Economy getEconomy() {
