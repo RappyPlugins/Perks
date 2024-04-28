@@ -24,10 +24,10 @@ i18n:
   pane:
     activated:
       title: "&aAktiviert"
-      decoration: "&bKlicke zum &cdeaktivieren&b!"
+      description: "&bKlicke zum &cdeaktivieren&b!"
     deactivated:
       title: "&cDeaktiviert"
-      decoration: "&bKlicke zum &aaktivieren&b!"
+      description: "&bKlicke zum &aaktivieren&b!"
     noPermission:
       title: "&cNicht freigeschaltet"
-      decoration: "&bDu hast dieses Perk noch nicht freigeschaltet!"
+      description: "&bDu hast dieses Perk noch nicht freigeschaltet!"

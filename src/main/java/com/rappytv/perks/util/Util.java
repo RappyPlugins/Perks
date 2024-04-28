@@ -50,17 +50,16 @@ public class Util {
                 Economy economy = plugin.getEconomy();
 
                 ItemStack item = null;
-                ItemMeta meta;
+                ItemMeta meta = null;
                 if(hasAllPerks) {
                     item = new ItemStack(Material.DIAMOND_BLOCK);
                     meta = item.getItemMeta();
                     meta.setDisplayName(plugin.i18n().translate("allPerks"));
-                    item.setItemMeta(meta);
                 } else if(economy != null) {
                     item = new ItemStack(Material.GOLD_BLOCK);
                     meta = item.getItemMeta();
                     String loreString = plugin.i18n().translate(
-                            "messages.buyPerkLore",
+                            "buyPerkLore",
                             new I18n.Argument("price", economy.format(plugin.getConfig().getDouble("economy.perks")))
                     );
                     List<String> lore = new ArrayList<>(Arrays.asList(loreString.split("\n")));
@@ -68,7 +67,10 @@ public class Util {
                     meta.setLore(lore);
                 }
 
-                if(item != null) inventory.setItem(i, item);
+                if(item != null) {
+                    item.setItemMeta(meta);
+                    inventory.setItem(i, item);
+                }
             }
             if(inventory.getItem(i) == null) {
                 inventory.setItem(i, new Perk.Pane(Perk.Pane.Type.DECORATION));

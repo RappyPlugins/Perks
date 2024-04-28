@@ -104,7 +104,7 @@ public abstract class Perk {
 
         @SuppressWarnings("ConstantConditions")
         public Pane(Type type) {
-            super(type == Type.ACTIVATED ? Material.LIME_STAINED_GLASS_PANE : type == Type.DEACTIVATED ? Material.RED_STAINED_GLASS_PANE : Material.GRAY_STAINED_GLASS_PANE);
+            super(type == Type.ACTIVATED ? Material.LIME_STAINED_GLASS_PANE : type == Type.DEACTIVATED ? Material.RED_STAINED_GLASS_PANE : type == Type.NOPERMISSION ? Material.BARRIER : Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta meta = this.getItemMeta();
             List<String> lore = new ArrayList<>();
             String title;
