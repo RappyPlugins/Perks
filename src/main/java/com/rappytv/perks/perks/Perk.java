@@ -68,7 +68,6 @@ public abstract class Perk {
             data = PlayerData.create(player);
         data.unlockPerk(this.id);
         data.save();
-        onEnable(player);
     }
 
     public void lockFor(Player player) {
