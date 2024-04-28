@@ -22,7 +22,7 @@ public abstract class Perk {
 
     public Perk(String id) {
         this.id = id;
-        this.name = plugin.i18n().translate("perk." + id + ".name");
+        this.name = plugin.i18n().translate("perks." + id + ".name");
         perks.add(this);
     }
 
@@ -97,7 +97,7 @@ public abstract class Perk {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§b" + name);
         List<String> lore = new ArrayList<>();
-        lore.add("§7" + plugin.i18n().translate("perk." + id + ".description"));
+        lore.add("§7" + plugin.i18n().translate("perks." + id + ".description"));
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
