@@ -2,7 +2,6 @@ package com.rappytv.perks.perks;
 
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
-import com.rappytv.perks.util.Util;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class Perk {
 
     public static final List<Perk> perks = new ArrayList<>();
@@ -85,6 +85,7 @@ public abstract class Perk {
         return new Pane(data.getActivePerks().contains(id) ? Pane.Type.ACTIVATED : Pane.Type.DEACTIVATED);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public ItemStack getItem(Material material) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
@@ -101,6 +102,7 @@ public abstract class Perk {
             Pane.plugin = plugin;
         }
 
+        @SuppressWarnings("ConstantConditions")
         public Pane(Type type) {
             super(type == Type.ACTIVATED ? Material.LIME_STAINED_GLASS_PANE : type == Type.DEACTIVATED ? Material.RED_STAINED_GLASS_PANE : Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta meta = this.getItemMeta();
