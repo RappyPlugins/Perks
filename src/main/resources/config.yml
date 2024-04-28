@@ -11,7 +11,7 @@ i18n:
   menuTitle: "&bPerks"
   allPerks: "&aDu hast alle Perks!"
   buyPerkLore: |-
-    &7Erhalte ein Zufälliges Perk, welches du für immer behältst.
+    &7Erhalte ein zufälliges Perk, welches du für immer behältst.
     
     &7Preis: &b<price>
   buyPerk: "&aPerk kaufen"
@@ -43,7 +43,7 @@ i18n:
       description: Erhalte die doppelte Anzahl an maximalen Herzen.
     jumpboost:
       name: Höher springen
-      description: Du kannst höher springen
+      description: Du kannst höher springen.
     speedboost:
       name: Schneller laufen
       description: Du bewegst dich sehr viel schneller.
@@ -73,19 +73,19 @@ i18n:
       description: Zombies können dir keinen Schaden mehr zufügen.
     glow:
       name: Glow
-      description: Du leuchtest
+      description: Du leuchtest.
     keepxp:
       name: XP behalten
       description: Du behältst deine Level wenn du stirbst.
     keepinventory:
       name: Inventar behalten
-      description: Du behältst dein Inventar wenn du stirbst
+      description: Du behältst dein Inventar wenn du stirbst.
     nightvision:
       name: Nachtsicht
-      description: Du siehst im Dunkeln wie eine Fledermaus
+      description: Du siehst im Dunkeln wie eine Fledermaus.
     fireprotection:
       name: Feuerschutz
-      description: Du erhältst keinen Feuerschaden mehr
+      description: Du erhältst keinen Feuerschaden mehr.
     nodrowning:
       name: Kein Ertrinken
       description: Du erhältst unter Wasser keinen Schaden mehr.
