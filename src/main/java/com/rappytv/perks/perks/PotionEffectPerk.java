@@ -1,18 +1,14 @@
 package com.rappytv.perks.perks;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public abstract class PotionEffectPerk extends Perk {
 
-    public PotionEffectPerk(String id, String name) {
-        super(id, name);
+    public PotionEffectPerk(String id) {
+        super(id);
     }
-
-    @Override
-    public abstract ItemStack getItem();
 
     public abstract PotionEffectType getEffectType();
     public abstract int getEffectAplifier();

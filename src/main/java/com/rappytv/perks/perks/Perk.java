@@ -4,6 +4,7 @@ import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,14 +15,19 @@ import java.util.List;
 public abstract class Perk {
 
     public static final List<Perk> perks = new ArrayList<>();
+    protected static PerkPlugin plugin;
 
     private final String id;
     private final String name;
 
-    public Perk(String id, String name) {
+    public Perk(String id) {
         this.id = id;
-        this.name = name;
+        this.name = plugin.i18n().translate("perk." + id + ".name");
         perks.add(this);
+    }
+
+    public static void setPlugin(PerkPlugin plugin) {
+        Perk.plugin = plugin;
     }
 
     public String getName() {
@@ -32,7 +38,7 @@ public abstract class Perk {
         return id;
     }
 
-    public abstract ItemStack getItem();
+    public abstract Material getMaterial();
     public abstract void onEnable(Player player);
     public abstract void onDisable(Player player);
 
@@ -86,21 +92,19 @@ public abstract class Perk {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public ItemStack getItem(Material material) {
-        ItemStack item = new ItemStack(material);
+    public ItemStack getItem() {
+        ItemStack item = new ItemStack(getMaterial());
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§b" + name);
+        List<String> lore = new ArrayList<>();
+        lore.add("§7" + plugin.i18n().translate("perk." + id + ".description"));
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
     }
 
     public static class Pane extends ItemStack {
-
-        private static PerkPlugin plugin;
-
-        public static void setPlugin(PerkPlugin plugin) {
-            Pane.plugin = plugin;
-        }
 
         @SuppressWarnings("ConstantConditions")
         public Pane(Type type) {

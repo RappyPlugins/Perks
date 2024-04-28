@@ -31,3 +31,70 @@ i18n:
     noPermission:
       title: "&cNicht freigeschaltet"
       description: "&bDu hast dieses Perk noch nicht freigeschaltet!"
+  perks:
+    xpboost:
+      name: Mehr XP
+      description: Erhalte mehr 2,5x so viel XP wie sonst.
+    haste:
+      name: Schneller abbauen
+      description: Du wirst deine Werkzeuge schneller denn je benutzen können.
+    morehearts:
+      name: Notch Apple
+      description: Erhalte die doppelte Anzahl an maximalen Herzen.
+    jumpboost:
+      name: Höher springen
+      description: Du kannst höher springen
+    speedboost:
+      name: Schneller laufen
+      description: Du bewegst dich sehr viel schneller.
+    strengthboost:
+      name: Stärke
+      description: Du wirst sehr viel stärker.
+    blazeimmunity:
+      name: Immun gegen Blaze
+      description: Blazes können dir keinen Schaden mehr zufügen.
+    creeperimmunity:
+      name: Immun gegen Creeper
+      description: Creeper können dir keinen Schaden mehr zufügen.
+    endermanimmunity:
+      name: Immun gegen Enderman
+      description: Endermen können dir keinen Schaden mehr zufügen.
+    ghastimmunity:
+      name: Immun gegen Ghast
+      description: Ghasts können dir keinen Schaden mehr zufügen.
+    skeletonimmunity:
+      name: Immun gegen Skelett
+      description: Skelette können dir keinen Schaden mehr zufügen.
+    spiderimmunity:
+      name: Immun gegen Spinne
+      description: Spinnen können dir keinen Schaden mehr zufügen.
+    zombieimmunity:
+      name: Immun gegen Zombie
+      description: Zombies können dir keinen Schaden mehr zufügen.
+    glow:
+      name: Glow
+      description: Du leuchtest
+    keepxp:
+      name: XP behalten
+      description: Du behältst deine Level wenn du stirbst.
+    keepinventory:
+      name: Inventar behalten
+      description: Du behältst dein Inventar wenn du stirbst
+    nightvision:
+      name: Nachtsicht
+      description: Du siehst im Dunkeln wie eine Fledermaus
+    fireprotection:
+      name: Feuerschutz
+      description: Du erhältst keinen Feuerschaden mehr
+    nodrowning:
+      name: Kein Ertrinken
+      description: Du erhältst unter Wasser keinen Schaden mehr.
+    nofalldamage:
+      name: Kein Fallschaden
+      description: Du erhältst keinen Fallschaden mehr.
+    protection:
+      name: Panzer
+      description: Du kriegst generell weniger Schaden.
+    nohunger:
+      name: Kein Hunger
+      description: Du hast keinen Hunger mehr.

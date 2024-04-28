@@ -51,7 +51,7 @@ public class PerkPlugin extends JavaPlugin {
         }
 
         // Register perks
-        Perk.Pane.setPlugin(this);
+        Perk.setPlugin(this);
         registerPerks();
 
         // Set data folder
