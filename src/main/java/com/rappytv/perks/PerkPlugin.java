@@ -2,6 +2,7 @@ package com.rappytv.perks;
 
 import com.rappytv.perks.command.PerkCommand;
 import com.rappytv.perks.listeners.InventoryListener;
+import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.perks.boosts.*;
 import com.rappytv.perks.perks.immunity.*;
 import com.rappytv.perks.perks.misc.Glow;
@@ -50,6 +51,7 @@ public class PerkPlugin extends JavaPlugin {
         }
 
         // Register perks
+        Perk.Pane.setPlugin(this);
         registerPerks();
 
         // Set data folder

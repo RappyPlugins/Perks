@@ -1,5 +1,6 @@
 package com.rappytv.perks.perks;
 
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.util.Util;
 import org.bukkit.Material;
@@ -94,6 +95,12 @@ public abstract class Perk {
 
     public static class Pane extends ItemStack {
 
+        private static PerkPlugin plugin;
+
+        public static void setPlugin(PerkPlugin plugin) {
+            Pane.plugin = plugin;
+        }
+
         public Pane(Type type) {
             super(type == Type.ACTIVATED ? Material.LIME_STAINED_GLASS_PANE : type == Type.DEACTIVATED ? Material.RED_STAINED_GLASS_PANE : Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta meta = this.getItemMeta();
@@ -101,16 +108,16 @@ public abstract class Perk {
             String title;
             String description = switch (type) {
                 case ACTIVATED -> {
-                    title = Util.message("pane.activated.title");
-                    yield Util.message("pane.activated.description");
+                    title = plugin.i18n().translate("pane.activated.title");
+                    yield plugin.i18n().translate("pane.activated.description");
                 }
                 case DEACTIVATED -> {
-                    title = Util.message("pane.deactivated.title");
-                    yield Util.message("pane.deactivated.description");
+                    title = plugin.i18n().translate("pane.deactivated.title");
+                    yield plugin.i18n().translate("pane.deactivated.description");
                 }
                 case NOPERMISSION -> {
-                    title = Util.message("pane.noPermission.title");
-                    yield Util.message("pane.noPermission.description");
+                    title = plugin.i18n().translate("pane.noPermission.title");
+                    yield plugin.i18n().translate("pane.noPermission.description");
                 }
                 case DECORATION -> {
                     title = "§e";
