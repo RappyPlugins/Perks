@@ -60,7 +60,7 @@ public class Util {
                     meta = item.getItemMeta();
                     String loreString = plugin.i18n().translate(
                             "buyPerkLore",
-                            new I18n.Argument("price", economy.format(plugin.getConfig().getDouble("economy.perks")))
+                            new I18n.Argument("price", economy.format(plugin.getConfig().getDouble("economy.price")))
                     );
                     List<String> lore = new ArrayList<>(Arrays.asList(loreString.split("\n")));
                     meta.setDisplayName(plugin.i18n().translate("buyPerk"));
