@@ -125,11 +125,11 @@ public class PlayerData {
         return unlockedPerks;
     }
     public void unlockPerk(String perk) {
-        activePerks.add(perk);
+        unlockedPerks.add(perk);
         config.set("perks.unlocked", new ArrayList<>(unlockedPerks));
     }
     public void lockPerk(String perk) {
-        activePerks.remove(perk);
+        unlockedPerks.remove(perk);
         config.set("perks.unlocked", new ArrayList<>(unlockedPerks));
     }
 }

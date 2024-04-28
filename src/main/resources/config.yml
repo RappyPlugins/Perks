@@ -8,14 +8,14 @@ perks:
 i18n:
   back: "&7Zurück"
   continue: "&7Weiter"
-  menuTitle: "&bPerks"
+  menuTitle: "#FFD700&lP#FFDE2C&le#FFE558&lr#FFEC84&lk#FFF3B0&ls"
   allPerks: "&aDu hast alle Perks!"
   buyPerkLore: |-
     &7Erhalte ein zufälliges Perk, welches du für immer behältst.
     
     &7Preis: &b<price>
   buyPerk: "&aPerk kaufen"
-  buyPerkTitle: "&5Perk freischalten"
+  buyPerkTitle: "#FFD700&lP#FFD90C&le#FFDB17&lr#FFDD23&lk #FFDE2F&lf#FFE03B&lr#FFE246&le#FFE452&li#FFE65E&ls#FFE86A&lc#FFEA75&lh#FFEC81&la#FFED8D&ll#FFEF99&lt#FFF1A4&le#FFF3B0&ln"
   error: "<prefix> &cEin Fehler ist aufgetreten!"
   perkUnlocked: "<prefix> Du hast das &b<perk> &7Perk freigeschaltet!"
   notEnoughMoney: "<prefix> &cDu hast nicht genug Geld!"
@@ -24,13 +24,13 @@ i18n:
   pane:
     activated:
       title: "&aAktiviert"
-      description: "&bKlicke zum &cdeaktivieren&b!"
+      description: "&7Klicke zum &cdeaktivieren&7!"
     deactivated:
       title: "&cDeaktiviert"
-      description: "&bKlicke zum &aaktivieren&b!"
+      description: "&7Klicke zum &aaktivieren&7!"
     noPermission:
       title: "&cNicht freigeschaltet"
-      description: "&bDu hast dieses Perk noch nicht freigeschaltet!"
+      description: "&7Du hast dieses Perk noch nicht freigeschaltet!"
   perks:
     xpboost:
       name: Mehr XP
