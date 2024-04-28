@@ -3,13 +3,17 @@ package com.rappytv.perks.perks.boosts;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("deprecation")
 public class HeartBoost extends Perk {
 
     public HeartBoost() {
-        super("morehearts", "Notch Apple");
+        super("morehearts");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.ENCHANTED_GOLDEN_APPLE;
     }
 
     @Override
@@ -20,10 +24,5 @@ public class HeartBoost extends Perk {
     @Override
     public void onDisable(Player player) {
         player.setMaxHealth(20);
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.ENCHANTED_GOLDEN_APPLE);
     }
 }

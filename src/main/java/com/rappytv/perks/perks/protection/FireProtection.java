@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.protection;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class FireProtection extends PotionEffectPerk {
 
     public FireProtection() {
-        super("fireprotection", "Feuerschutz");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.BLAZE_POWDER);
+        super("fireprotection");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class FireProtection extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 0;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.BLAZE_POWDER;
     }
 }

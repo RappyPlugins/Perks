@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.protection;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class StopHunger extends Perk {
 
     public StopHunger() {
-        super("nohunger", "Kein Hunger");
+        super("nohunger");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.COOKED_BEEF;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class StopHunger extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.COOKED_BEEF);
-    }
 }

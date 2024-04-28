@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.immunity;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class BlazeImmunity extends Perk {
 
     public BlazeImmunity() {
-        super("blazeimmunity", "Immun gegen Blaze");
+        super("blazeimmunity");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.BLAZE_SPAWN_EGG;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class BlazeImmunity extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.BLAZE_SPAWN_EGG);
-    }
 }

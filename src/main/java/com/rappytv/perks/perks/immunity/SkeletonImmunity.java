@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.immunity;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class SkeletonImmunity extends Perk {
 
     public SkeletonImmunity() {
-        super("skeletonimmunity", "Immun gegen Skelett");
+        super("skeletonimmunity");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.SKELETON_SPAWN_EGG;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class SkeletonImmunity extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.SKELETON_SPAWN_EGG);
-    }
 }

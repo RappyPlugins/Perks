@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.misc;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class KeepExperience extends Perk {
 
     public KeepExperience() {
-        super("keepxp", "XP Behalten");
+        super("keepxp");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.EXPERIENCE_BOTTLE;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class KeepExperience extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.EXPERIENCE_BOTTLE);
-    }
 }

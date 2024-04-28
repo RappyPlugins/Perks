@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.boosts;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class ExperienceBoost extends Perk {
 
     public ExperienceBoost() {
-        super("xpboost", "Mehr XP");
+        super("xpboost");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.EXPERIENCE_BOTTLE;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class ExperienceBoost extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.EXPERIENCE_BOTTLE);
-    }
 }

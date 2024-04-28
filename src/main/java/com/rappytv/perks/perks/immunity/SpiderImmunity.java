@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.immunity;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class SpiderImmunity extends Perk {
 
     public SpiderImmunity() {
-        super("spiderimmunity", "Immun gegen Spinne");
+        super("spiderimmunity");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.SPIDER_SPAWN_EGG;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class SpiderImmunity extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.SPIDER_SPAWN_EGG);
-    }
 }

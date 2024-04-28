@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.boosts;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class SpeedBoost extends PotionEffectPerk {
 
     public SpeedBoost() {
-        super("speedboost", "Schneller Laufen");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.IRON_BOOTS);
+        super("speedboost");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class SpeedBoost extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 1;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.IRON_BOOTS;
     }
 }
