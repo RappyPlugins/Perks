@@ -12,9 +12,6 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import java.util.List;
-import java.util.Set;
-
 public class PlayerListener implements Listener {
 
     private final PerkPlugin plugin;
@@ -29,10 +26,9 @@ public class PlayerListener implements Listener {
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) return;
 
-        Set<String> perks = data.getActivePerks();
-        List<Perk> filteredPerks = Perk.perks.stream().filter((perk) -> perks.contains(perk.getId())).toList();
-        for(Perk perk : filteredPerks) {
-            perk.onEnable(player);
+        for(Perk perk : Perk.perks) {
+            if(data.getActivePerks().contains(perk.getId()))
+                perk.onEnable(player);
         }
     }
 
@@ -56,9 +52,9 @@ public class PlayerListener implements Listener {
         PlayerData data = PlayerData.get(player);
         if(data == null) return;
 
-        List<Perk> perks = Perk.perks.stream().filter((perk) -> data.getActivePerks().contains(perk.getId())).toList();
-        for(Perk perk : perks) {
-            perk.onEnable(player);
+        for(Perk perk : Perk.perks) {
+            if(data.getActivePerks().contains(perk.getId()))
+                perk.onEnable(player);
         }
     }
 
