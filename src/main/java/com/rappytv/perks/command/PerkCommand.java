@@ -62,6 +62,13 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
                 return;
             }
+            if(optionalPerk.get().isPerkUnlocked(target)) {
+                sender.sendMessage(plugin.i18n().translate(
+                        "perkAlreadyUnlocked",
+                        new I18n.Argument("player", target.getName())
+                ));
+                return;
+            }
             optionalPerk.get().unlockFor(target);
             sender.sendMessage(plugin.i18n().translate(
                     "updatedPerks",
@@ -82,6 +89,13 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
                 return;
             }
+            if(!optionalPerk.get().isPerkUnlocked(target)) {
+                sender.sendMessage(plugin.i18n().translate(
+                        "perkNotUnlocked",
+                        new I18n.Argument("player", target.getName())
+                ));
+                return;
+            }
             optionalPerk.get().lockFor(target);
             sender.sendMessage(plugin.i18n().translate(
                     "updatedPerks",
@@ -94,6 +108,12 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
             }
 
             List<Perk> perks = Perk.perks.stream().filter((p) -> p.isPerkUnlocked(target)).toList();
+            if(perks.isEmpty()) {
+                sender.sendMessage(plugin.i18n().translate(
+                        "perksEmpty",
+                        new I18n.Argument("player", target.getName())
+                ));
+            }
             for(Perk perk : perks)
                 perk.lockFor(target);
             sender.sendMessage(plugin.i18n().translate(
@@ -115,6 +135,13 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
                 return;
             }
+            if(optionalPerk.get().isPerkActive(target)) {
+                sender.sendMessage(plugin.i18n().translate(
+                        "perkAlreadyActive",
+                        new I18n.Argument("player", target.getName())
+                ));
+                return;
+            }
             optionalPerk.get().addTo(target);
             sender.sendMessage(plugin.i18n().translate(
                     "updatedPerks",
@@ -133,6 +160,13 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
             Optional<Perk> optionalPerk = Perk.perks.stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
             if(optionalPerk.isEmpty()) {
                 sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
+                return;
+            }
+            if(!optionalPerk.get().isPerkActive(target)) {
+                sender.sendMessage(plugin.i18n().translate(
+                        "perkNotActive",
+                        new I18n.Argument("player", target.getName())
+                ));
                 return;
             }
             optionalPerk.get().removeFrom(target);
