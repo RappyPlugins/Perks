@@ -18,7 +18,11 @@ permissions:
     children:
       perks.reload:
         default: op
-      perks.command:
-        default: true
       perks.quickUnlock:
         default: op
+      perks.manage.add:
+        default: op
+      perks.manage.remove:
+        default: op
+      perks.menu:
+        default: true
