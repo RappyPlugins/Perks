@@ -1,36 +1,109 @@
-messages:
-  prefix: "§bPerks §8» §7"
-  console: "§cDie Konsole darf diesen Befehl nicht ausführen!"
-  noPermission: "§cDir fehlt die Berechtigung §b%s§c!"
-  back: "§7Zurück"
-  continue: "§7Weiter"
-  menuTitle: "§bPerks"
-  allPerks: "§aDu hast alle Perks!"
-  buyPerkLore:
-    - "§7Erhalte ein Zufälliges Perk, welches du für immer behältst."
-    - ""
-    - "§7Preis: §b%s"
-  buyPerk: "§aPerk kaufen"
-  buyPerkTitle: "§5Perk freischalten"
-  error: "§cEin Fehler ist aufgetreten!"
-  perkUnlocked: "Du hast das §b%s §7Perk freigeschaltet!"
-  notEnoughMoney: "§cDu hast nicht genug Geld!"
-  alreadyUnlockingPerk: "§cDu schaltest gerade bereits ein Perk frei!"
-  alreadyAllPerks: "§cDu hast bereits alle Perks!"
-  pane:
-    activated:
-      title: "§aAktiviert"
-      decoration: "§bKlicke zum §cdeaktivieren§b!"
-    deactivated:
-      title: "§cDeaktiviert"
-      decoration: "§bKlicke zum §aaktivieren§b!"
-    noPermission:
-      title: "§cNicht freigeschaltet"
-      decoration: "§bDu hast dieses Perk noch nicht freigeschaltet!"
-
 economy:
   buyable: true
   price: 300000
 
 perks:
   xpboostMultiplier: 2.5
+
+i18n:
+  back: "&7Zurück"
+  continue: "&7Weiter"
+  menuTitle: "#FFD700&lP#FFDE2C&le#FFE558&lr#FFEC84&lk#FFF3B0&ls"
+  allPerks: "&aDu hast alle Perks!"
+  buyPerkLore: |-
+    &7Erhalte ein zufälliges Perk, welches du für immer behältst.
+    
+    &7Preis: &b<price>
+  buyPerk: "&aPerk kaufen"
+  buyPerkTitle: "#FFD700&lP#FFD90C&le#FFDB17&lr#FFDD23&lk #FFDE2F&lf#FFE03B&lr#FFE246&le#FFE452&li#FFE65E&ls#FFE86A&lc#FFEA75&lh#FFEC81&la#FFED8D&ll#FFEF99&lt#FFF1A4&le#FFF3B0&ln"
+  error: "<prefix> &cEin Fehler ist aufgetreten!"
+  enterPerk: "<prefix> &cDu musst ein Perk angeben!"
+  perkNotFound: "<prefix> &cPerk nicht gefunden!"
+  updatedPerks: "<prefix> &b<player>'s &7Perks wurden aktualisiert."
+  perkUnlocked: "<prefix> Du hast das &b<perk> &7Perk freigeschaltet!"
+  perksEmpty: "<prefix> &b<player> &chat keine Perks!"
+  perkAlreadyUnlocked: "<prefix> &b<player> &chat dieses Perk bereits!"
+  perkNotUnlocked: "<prefix> &b<player> &chat dieses Perk nicht!"
+  perkAlreadyActive: "<prefix> &b<player> &chat dieses Perk bereits aktiviert!"
+  perkNotActive: "<prefix> &b<player> &chat dieses Perk nicht aktiviert!"
+  quickUnlockPerk: "&8&o(Klicke, um das Perk freizuschalten)"
+  notEnoughMoney: "<prefix> &cDu hast nicht genug Geld!"
+  alreadyUnlockingPerk: "<prefix> &cDu schaltest gerade bereits ein Perk frei!"
+  alreadyAllPerks: "<prefix> &cDu hast bereits alle Perks!"
+  pane:
+    activated:
+      title: "&aAktiviert"
+      description: "&7Klicke zum &cdeaktivieren&7!"
+    deactivated:
+      title: "&cDeaktiviert"
+      description: "&7Klicke zum &aaktivieren&7!"
+    noPermission:
+      title: "&cNicht freigeschaltet"
+      description: "&7Du hast dieses Perk noch nicht freigeschaltet!"
+  perks:
+    xpboost:
+      name: Mehr XP
+      description: Erhalte mehr 2,5x so viel XP wie sonst.
+    haste:
+      name: Schneller abbauen
+      description: Du wirst deine Werkzeuge schneller denn je benutzen können.
+    morehearts:
+      name: Notch Apple
+      description: Erhalte die doppelte Anzahl an maximalen Herzen.
+    jumpboost:
+      name: Höher springen
+      description: Du kannst höher springen.
+    speedboost:
+      name: Schneller laufen
+      description: Du bewegst dich sehr viel schneller.
+    strengthboost:
+      name: Stärke
+      description: Du wirst sehr viel stärker.
+    blazeimmunity:
+      name: Immun gegen Blaze
+      description: Blazes können dir keinen Schaden mehr zufügen.
+    creeperimmunity:
+      name: Immun gegen Creeper
+      description: Creeper können dir keinen Schaden mehr zufügen.
+    endermanimmunity:
+      name: Immun gegen Enderman
+      description: Endermen können dir keinen Schaden mehr zufügen.
+    ghastimmunity:
+      name: Immun gegen Ghast
+      description: Ghasts können dir keinen Schaden mehr zufügen.
+    skeletonimmunity:
+      name: Immun gegen Skelett
+      description: Skelette können dir keinen Schaden mehr zufügen.
+    spiderimmunity:
+      name: Immun gegen Spinne
+      description: Spinnen können dir keinen Schaden mehr zufügen.
+    zombieimmunity:
+      name: Immun gegen Zombie
+      description: Zombies können dir keinen Schaden mehr zufügen.
+    glow:
+      name: Glow
+      description: Du leuchtest.
+    keepxp:
+      name: XP behalten
+      description: Du behältst deine Level wenn du stirbst.
+    keepinventory:
+      name: Inventar behalten
+      description: Du behältst dein Inventar wenn du stirbst.
+    nightvision:
+      name: Nachtsicht
+      description: Du siehst im Dunkeln wie eine Fledermaus.
+    fireprotection:
+      name: Feuerschutz
+      description: Du erhältst keinen Feuerschaden mehr.
+    nodrowning:
+      name: Kein Ertrinken
+      description: Du erhältst unter Wasser keinen Schaden mehr.
+    nofalldamage:
+      name: Kein Fallschaden
+      description: Du erhältst keinen Fallschaden mehr.
+    protection:
+      name: Panzer
+      description: Du kriegst generell weniger Schaden.
+    nohunger:
+      name: Kein Hunger
+      description: Du hast keinen Hunger mehr.

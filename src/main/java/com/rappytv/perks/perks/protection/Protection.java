@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.protection;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class Protection extends PotionEffectPerk {
 
     public Protection() {
-        super("protection", "Panzer");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.BEDROCK);
+        super("protection");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class Protection extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 1;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.BEDROCK;
     }
 }

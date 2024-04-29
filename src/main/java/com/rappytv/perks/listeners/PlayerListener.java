@@ -1,10 +1,12 @@
 package com.rappytv.perks.listeners;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -12,14 +14,11 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import java.util.List;
-import java.util.Set;
-
 public class PlayerListener implements Listener {
 
-    private final Perks plugin;
+    private final PerkPlugin plugin;
 
-    public PlayerListener(Perks plugin) {
+    public PlayerListener(PerkPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -29,14 +28,13 @@ public class PlayerListener implements Listener {
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) return;
 
-        Set<String> perks = data.getActivePerks();
-        List<Perk> filteredPerks = Perk.perks.stream().filter((perk) -> perks.contains(perk.getId())).toList();
-        for(Perk perk : filteredPerks) {
-            perk.onEnable(player);
+        for(Perk perk : Perk.perks) {
+            if(data.getActivePerks().contains(perk.getId()))
+                perk.onEnable(player);
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPickupXP(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
@@ -50,16 +48,18 @@ public class PlayerListener implements Listener {
             event.setAmount((int) Math.ceil(event.getAmount() * multiplier));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
         if(data == null) return;
 
-        List<Perk> perks = Perk.perks.stream().filter((perk) -> data.getActivePerks().contains(perk.getId())).toList();
-        for(Perk perk : perks) {
-            perk.onEnable(player);
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            for(Perk perk : Perk.perks) {
+                if(data.getActivePerks().contains(perk.getId()))
+                    perk.onEnable(player);
+            }
+        }, 1);
     }
 
     @EventHandler
@@ -78,7 +78,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onHunger(FoodLevelChangeEvent event) {
         if(event.getEntity() instanceof Player player) {
             PlayerData data = PlayerData.get(player);

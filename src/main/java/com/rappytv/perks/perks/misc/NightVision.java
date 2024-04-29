@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.misc;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class NightVision extends PotionEffectPerk {
 
     public NightVision() {
-        super("nightvision", "Nachtsicht");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.CARVED_PUMPKIN);
+        super("nightvision");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class NightVision extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 0;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.CARVED_PUMPKIN;
     }
 }

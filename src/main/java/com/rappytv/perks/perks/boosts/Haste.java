@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.boosts;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class Haste extends PotionEffectPerk {
 
     public Haste() {
-        super("haste", "Schneller Abbauen");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.IRON_PICKAXE);
+        super("haste");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class Haste extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 1;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.IRON_PICKAXE;
     }
 }

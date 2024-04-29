@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DamageListener implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player player) {
             PlayerData data = PlayerData.get(player);
@@ -21,7 +21,7 @@ public class DamageListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerDamageByEntity(EntityDamageByEntityEvent event) {
         if(event.getEntity() instanceof Player player) {
             PlayerData data = PlayerData.get(player);

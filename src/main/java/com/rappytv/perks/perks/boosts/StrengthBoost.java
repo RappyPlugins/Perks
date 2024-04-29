@@ -2,18 +2,12 @@ package com.rappytv.perks.perks.boosts;
 
 import com.rappytv.perks.perks.PotionEffectPerk;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 public class StrengthBoost extends PotionEffectPerk {
 
     public StrengthBoost() {
-        super("strengthboost", "Stärke");
-    }
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.IRON_SWORD);
+        super("strengthboost");
     }
 
     @Override
@@ -24,5 +18,10 @@ public class StrengthBoost extends PotionEffectPerk {
     @Override
     public int getEffectAplifier() {
         return 1;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.IRON_SWORD;
     }
 }

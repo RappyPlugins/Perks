@@ -1,14 +1,16 @@
 name: Perks
 version: '${project.version}'
-main: com.rappytv.perks.Perks
+main: com.rappytv.perks.PerkPlugin
 api-version: '1.19'
+depend:
+  - RyLib
 softdepend:
   - Vault
 
 commands:
   perks:
     aliases: [ perk ]
-    permission: esntls.perks
+    permission: perks.menu
 
 permissions:
   perks.*:
@@ -16,5 +18,15 @@ permissions:
     children:
       perks.reload:
         default: op
-      perks.command:
+      perks.quickUnlock:
+        default: op
+      perks.manage.add:
+        default: op
+      perks.manage.remove:
+        default: op
+      perks.manage.enable:
+        default: op
+      perks.manage.disable:
+        default: op
+      perks.menu:
         default: true

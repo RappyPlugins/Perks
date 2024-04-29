@@ -1,6 +1,6 @@
 package com.rappytv.perks.config;
 
-import com.rappytv.perks.Perks;
+import com.rappytv.perks.PerkPlugin;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public class PlayerData {
 
-    private static final File folder = new File(Perks.dataFolder, "playerdata");
+    private static final File folder = new File(PerkPlugin.dataFolder, "playerdata");
     private final File file;
     private final FileConfiguration config;
 
@@ -125,11 +125,11 @@ public class PlayerData {
         return unlockedPerks;
     }
     public void unlockPerk(String perk) {
-        activePerks.add(perk);
+        unlockedPerks.add(perk);
         config.set("perks.unlocked", new ArrayList<>(unlockedPerks));
     }
     public void lockPerk(String perk) {
-        activePerks.remove(perk);
+        unlockedPerks.remove(perk);
         config.set("perks.unlocked", new ArrayList<>(unlockedPerks));
     }
 }

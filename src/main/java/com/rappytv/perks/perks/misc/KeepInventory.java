@@ -3,12 +3,16 @@ package com.rappytv.perks.perks.misc;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class KeepInventory extends Perk {
 
     public KeepInventory() {
-        super("keepinventory", "Inventar behalten");
+        super("keepinventory");
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.CHEST;
     }
 
     @Override
@@ -16,9 +20,4 @@ public class KeepInventory extends Perk {
 
     @Override
     public void onDisable(Player player) {}
-
-    @Override
-    public ItemStack getItem() {
-        return getItem(Material.CHEST);
-    }
 }
