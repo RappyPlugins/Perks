@@ -10,7 +10,7 @@ softdepend:
 commands:
   perks:
     aliases: [ perk ]
-    permission: perks.command
+    permission: perks.menu
 
 permissions:
   perks.*:
@@ -23,6 +23,10 @@ permissions:
       perks.manage.add:
         default: op
       perks.manage.remove:
+        default: op
+      perks.manage.enable:
+        default: op
+      perks.manage.disable:
         default: op
       perks.menu:
         default: true

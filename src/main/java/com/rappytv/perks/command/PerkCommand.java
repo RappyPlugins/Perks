@@ -43,16 +43,22 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 list.add("remove");
                 list.add("clear");
             }
+            if(sender.hasPermission("perks.manage.enable")) list.add("enable");
+            if(sender.hasPermission("perks.manage.disable")) list.add("disable");
             return tab(args[0], list);
         } else if(args.length == 2) {
             boolean add = sender.hasPermission("perks.manage.add") && args[0].equalsIgnoreCase("add");
             boolean remove = sender.hasPermission("perks.manage.remove") && args[0].equalsIgnoreCase("remove");
             boolean clear = sender.hasPermission("perks.manage.remove") && args[0].equalsIgnoreCase("clear");
+            boolean enable = sender.hasPermission("perks.manage.enable") && args[0].equalsIgnoreCase("enable");
+            boolean disable = sender.hasPermission("perks.manage.disable") && args[0].equalsIgnoreCase("disable");
 
-            if(add || remove || clear) return players;
+            if(add || remove || clear || enable || disable) return players;
         } else if(args.length == 3) {
             boolean add = sender.hasPermission("perks.manage.add") && args[0].equalsIgnoreCase("add");
             boolean remove = sender.hasPermission("perks.manage.remove") && args[0].equalsIgnoreCase("remove");
+            boolean enable = sender.hasPermission("perks.manage.enable") && args[0].equalsIgnoreCase("enable");
+            boolean disable = sender.hasPermission("perks.manage.disable") && args[0].equalsIgnoreCase("disable");
             PlayerData data = PlayerData.get(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
             if(data == null) return null;
 
@@ -61,7 +67,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     if(!data.getActivePerks().contains(perk.getId()))
                         list.add(perk.getId());
                 }
-            } else if(remove) {
+            } else if(remove || enable || disable) {
                 for(Perk perk : Perk.perks) {
                     if(data.getActivePerks().contains(perk.getId()))
                         list.add(perk.getId());
