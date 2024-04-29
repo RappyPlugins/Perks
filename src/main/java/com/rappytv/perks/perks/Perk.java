@@ -86,7 +86,7 @@ public abstract class Perk {
             data.save();
         }
         if(!data.getUnlockedPerks().contains(id))
-            return new Pane(Pane.Type.NOPERMISSION);
+            return new Pane(Pane.Type.NOPERMISSION, player.hasPermission("perks.quickUnlock"));
         return new Pane(data.getActivePerks().contains(id) ? Pane.Type.ACTIVATED : Pane.Type.DEACTIVATED);
     }
 
@@ -105,8 +105,12 @@ public abstract class Perk {
 
     public static class Pane extends ItemStack {
 
-        @SuppressWarnings("ConstantConditions")
         public Pane(Type type) {
+            this(type, false);
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        public Pane(Type type, boolean quick) {
             super(type == Type.ACTIVATED ? Material.LIME_STAINED_GLASS_PANE : type == Type.DEACTIVATED ? Material.RED_STAINED_GLASS_PANE : type == Type.NOPERMISSION ? Material.BARRIER : Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta meta = this.getItemMeta();
             List<String> lore = new ArrayList<>();
@@ -132,6 +136,10 @@ public abstract class Perk {
             };
             meta.setDisplayName(title);
             lore.add(description);
+            if(type == Type.NOPERMISSION && quick) {
+                lore.add("");
+                lore.add(plugin.i18n().translate("quickUnlockPerk"));
+            }
             meta.setLore(lore);
             this.setItemMeta(meta);
         }

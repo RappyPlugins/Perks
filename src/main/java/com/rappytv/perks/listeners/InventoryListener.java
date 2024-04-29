@@ -71,6 +71,14 @@ public class InventoryListener implements Listener {
                 if(perk.isEmpty()) return;
                 perk.get().addTo(player);
                 inventory.setItem(event.getSlot(), new Perk.Pane(Perk.Pane.Type.ACTIVATED));
+            } else if(item.getType() == Material.BARRIER) {
+                if(!player.hasPermission("perks.quickUnlock")) return;
+                Optional<Perk> perk = Perk.perks.stream().filter((p) ->
+                        p.getItem().equals(inventory.getItem(event.getSlot() - 9))
+                ).findFirst();
+                if(perk.isEmpty()) return;
+                perk.get().unlockFor(player);
+                inventory.setItem(event.getSlot(), new Perk.Pane(Perk.Pane.Type.DEACTIVATED));
             } else if(item.getType() == Material.GOLD_BLOCK) {
                 Economy economy = plugin.getEconomy();
                 if(economy == null) return;

@@ -20,3 +20,5 @@ permissions:
         default: op
       perks.command:
         default: true
+      perks.quickUnlock:
+        default: op
