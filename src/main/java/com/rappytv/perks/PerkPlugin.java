@@ -1,7 +1,9 @@
 package com.rappytv.perks;
 
 import com.rappytv.perks.command.PerkCommand;
+import com.rappytv.perks.listeners.DamageListener;
 import com.rappytv.perks.listeners.InventoryListener;
+import com.rappytv.perks.listeners.PlayerListener;
 import com.rappytv.perks.perks.Perk;
 import com.rappytv.perks.perks.boosts.*;
 import com.rappytv.perks.perks.immunity.*;
@@ -58,7 +60,9 @@ public class PerkPlugin extends JavaPlugin {
         dataFolder = getDataFolder();
 
         PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new DamageListener(), this);
         pm.registerEvents(new InventoryListener(this), this);
+        pm.registerEvents(new PlayerListener(this), this);
         new PerkCommand("perks", this);
     }
 
