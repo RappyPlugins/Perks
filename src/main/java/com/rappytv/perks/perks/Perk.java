@@ -3,6 +3,7 @@ package com.rappytv.perks.perks;
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -42,41 +43,53 @@ public abstract class Perk {
     public abstract void onEnable(Player player);
     public abstract void onDisable(Player player);
 
-    public void addTo(Player player) {
-        PlayerData data = PlayerData.get(player);
+    public void addTo(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) {
             data = PlayerData.create(player);
         }
         data.activatePerk(this.id);
         data.save();
-        onEnable(player);
+        if(player.isOnline()) onEnable((Player) player);
     }
 
-    public void removeFrom(Player player) {
-        PlayerData data = PlayerData.get(player);
+    public void removeFrom(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) {
             data = PlayerData.create(player);
         }
         data.deactivatePerk(this.id);
         data.save();
-        onDisable(player);
+        if(player.isOnline()) onDisable((Player) player);
     }
 
-    public void unlockFor(Player player) {
-        PlayerData data = PlayerData.get(player);
+    public void unlockFor(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null)
             data = PlayerData.create(player);
         data.unlockPerk(this.id);
         data.save();
     }
 
-    public void lockFor(Player player) {
-        PlayerData data = PlayerData.get(player);
+    public void lockFor(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null)
             data = PlayerData.create(player);
         data.lockPerk(this.id);
         data.save();
-        onDisable(player);
+        if(player.isOnline()) onDisable((Player) player);
+    }
+
+    public boolean isPerkActive(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
+        if(data == null) return false;
+        return data.getActivePerks().contains(id);
+    }
+
+    public boolean isPerkUnlocked(OfflinePlayer player) {
+        PlayerData data = PlayerData.get(player.getUniqueId());
+        if(data == null) return false;
+        return data.getUnlockedPerks().contains(id);
     }
 
     public ItemStack getPane(Player player) {
