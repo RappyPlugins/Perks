@@ -3,6 +3,7 @@ package com.rappytv.perks.listeners;
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,7 +34,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPickupXP(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
@@ -47,16 +48,18 @@ public class PlayerListener implements Listener {
             event.setAmount((int) Math.ceil(event.getAmount() * multiplier));
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
         if(data == null) return;
 
-        for(Perk perk : Perk.perks) {
-            if(data.getActivePerks().contains(perk.getId()))
-                perk.onEnable(player);
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            for(Perk perk : Perk.perks) {
+                if(data.getActivePerks().contains(perk.getId()))
+                    perk.onEnable(player);
+            }
+        }, 1);
     }
 
     @EventHandler
@@ -75,7 +78,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onHunger(FoodLevelChangeEvent event) {
         if(event.getEntity() instanceof Player player) {
             PlayerData data = PlayerData.get(player);
