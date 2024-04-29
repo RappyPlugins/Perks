@@ -5,6 +5,7 @@ import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -32,7 +33,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPickupXP(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
@@ -46,7 +47,7 @@ public class PlayerListener implements Listener {
             event.setAmount((int) Math.ceil(event.getAmount() * multiplier));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         PlayerData data = PlayerData.get(player);
@@ -74,7 +75,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onHunger(FoodLevelChangeEvent event) {
         if(event.getEntity() instanceof Player player) {
             PlayerData data = PlayerData.get(player);
