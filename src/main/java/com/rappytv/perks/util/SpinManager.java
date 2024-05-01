@@ -13,7 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @SuppressWarnings("ConstantConditions")
@@ -79,13 +78,18 @@ public class SpinManager {
                         done = true;
 
                         ItemStack item = inventory.getItem(13);
-                        Optional<Perk> optionalPerk = perks.stream().filter((p -> p.getItem().equals(item))).findFirst();
+                        Perk perk = null;
+                        for(Perk p : perks) {
+                            if(p.getItem().equals(item)) {
+                                perk = p;
+                                break;
+                            }
+                        }
 
-                        if(optionalPerk.isEmpty()) {
+                        if(perk == null) {
                             player.sendMessage(plugin.i18n().translate("error"));
                             return;
                         }
-                        Perk perk = optionalPerk.get();
 
                         ItemStack arrow = new ItemStack(Material.ARROW);
                         ItemMeta meta = arrow.getItemMeta();

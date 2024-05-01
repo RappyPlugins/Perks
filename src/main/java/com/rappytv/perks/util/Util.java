@@ -45,8 +45,12 @@ public class Util {
                 arrow.setItemMeta(meta);
                 inventory.setItem(i, arrow);
             } else if(i == 31) {
-                final PlayerData finalData = data;
-                boolean hasAllPerks = PerkManager.getPerks().stream().allMatch((perk -> finalData.getUnlockedPerks().contains(perk.getId())));
+                boolean hasAllPerks = true;
+                for(Perk perk : PerkManager.getPerks())
+                    if(!data.getUnlockedPerks().contains(perk.getId())) {
+                        hasAllPerks = false;
+                        break;
+                    }
 
                 Economy economy = plugin.getEconomy();
 

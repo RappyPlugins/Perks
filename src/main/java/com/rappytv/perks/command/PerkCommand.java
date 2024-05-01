@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
 
@@ -44,7 +43,10 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 return;
             }
 
-            List<Perk> perks = PerkManager.getPerks().stream().filter((p) -> p.isPerkUnlocked(target)).toList();
+            List<Perk> perks = new ArrayList<>();
+            for(Perk perk : PerkManager.getPerks())
+                if(perk.isPerkUnlocked(target)) perks.add(perk);
+
             if(perks.isEmpty()) {
                 sender.sendMessage(plugin.i18n().translate(
                         "perksEmpty",
@@ -66,59 +68,65 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 sender.sendMessage(plugin.i18n().translate("enterPerk"));
                 return;
             }
-            Optional<Perk> optionalPerk = PerkManager.getPerks().stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
-            if(optionalPerk.isEmpty()) {
+            Perk perk = null;
+            for(Perk p : PerkManager.getPerks()) {
+                if(p.getId().equalsIgnoreCase(args[2])) {
+                    perk = p;
+                    break;
+                }
+            }
+            if(perk == null) {
                 sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
                 return;
             }
             if(args[0].equalsIgnoreCase("add")) {
-                if(optionalPerk.get().isPerkUnlocked(target)) {
+                if(perk.isPerkUnlocked(target)) {
                     sender.sendMessage(plugin.i18n().translate(
                             "perkAlreadyUnlocked",
                             new I18n.Argument("player", target.getName())
                     ));
                     return;
                 }
-                optionalPerk.get().unlockFor(target);
+                perk.unlockFor(target);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
                 ));
             } else if(args[0].equalsIgnoreCase("remove")) {
-                if(!optionalPerk.get().isPerkUnlocked(target)) {
+                if(!perk.isPerkUnlocked(target)) {
                     sender.sendMessage(plugin.i18n().translate(
                             "perkNotUnlocked",
                             new I18n.Argument("player", target.getName())
                     ));
                     return;
                 }
-                optionalPerk.get().lockFor(target);
+                perk.lockFor(target);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
                 ));
             } else if(args[0].equalsIgnoreCase("enable")) {
-                if(optionalPerk.get().isPerkActive(target)) {
+                if(perk.isPerkActive(target)) {
                     sender.sendMessage(plugin.i18n().translate(
                             "perkAlreadyActive",
                             new I18n.Argument("player", target.getName())
                     ));
                     return;
                 }
-                optionalPerk.get().addTo(target);
+                perk.addTo(target);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
                 ));
             } else if(args[0].equalsIgnoreCase("disable")) {
-                if(!optionalPerk.get().isPerkActive(target)) {
+                if(!perk.isPerkActive(target)) {
                     sender.sendMessage(plugin.i18n().translate(
                             "perkNotActive",
                             new I18n.Argument("player", target.getName())
                     ));
                     return;
                 }
-                optionalPerk.get().removeFrom(target);
+                perk.removeFrom(target);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())

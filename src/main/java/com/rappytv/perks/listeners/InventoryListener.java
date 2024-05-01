@@ -18,7 +18,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class InventoryListener implements Listener {
 
@@ -59,26 +58,29 @@ public class InventoryListener implements Listener {
                 }
                 Util.openPerkGUI(plugin, player, page);
             } else if(item.getType() == Material.LIME_STAINED_GLASS_PANE) {
-                Optional<Perk> perk = PerkManager.getPerks().stream().filter((p) ->
-                        p.getItem().equals(inventory.getItem(event.getSlot() - 9))
-                ).findFirst();
-                if(perk.isEmpty()) return;
-                perk.get().removeFrom(player);
+                Perk perk = null;
+                for(Perk p : PerkManager.getPerks()) {
+                    if(p.getItem().equals(inventory.getItem(event.getSlot() - 9))) perk = p;
+                }
+                if(perk == null) return;
+                perk.removeFrom(player);
                 inventory.setItem(event.getSlot(), new Perk.Pane(Perk.Pane.Type.DEACTIVATED));
             } else if(item.getType() == Material.RED_STAINED_GLASS_PANE) {
-                Optional<Perk> perk = PerkManager.getPerks().stream().filter((p) ->
-                        p.getItem().equals(inventory.getItem(event.getSlot() - 9))
-                ).findFirst();
-                if(perk.isEmpty()) return;
-                perk.get().addTo(player);
+                Perk perk = null;
+                for(Perk p : PerkManager.getPerks()) {
+                    if(p.getItem().equals(inventory.getItem(event.getSlot() - 9))) perk = p;
+                }
+                if(perk == null) return;
+                perk.addTo(player);
                 inventory.setItem(event.getSlot(), new Perk.Pane(Perk.Pane.Type.ACTIVATED));
             } else if(item.getType() == Material.BARRIER) {
                 if(!player.hasPermission("perks.quickUnlock")) return;
-                Optional<Perk> perk = PerkManager.getPerks().stream().filter((p) ->
-                        p.getItem().equals(inventory.getItem(event.getSlot() - 9))
-                ).findFirst();
-                if(perk.isEmpty()) return;
-                perk.get().unlockFor(player);
+                Perk perk = null;
+                for(Perk p : PerkManager.getPerks()) {
+                    if(p.getItem().equals(inventory.getItem(event.getSlot() - 9))) perk = p;
+                }
+                if(perk == null) return;
+                perk.unlockFor(player);
                 inventory.setItem(event.getSlot(), new Perk.Pane(Perk.Pane.Type.DEACTIVATED));
             } else if(item.getType() == Material.GOLD_BLOCK) {
                 Economy economy = plugin.getEconomy();
@@ -100,10 +102,14 @@ public class InventoryListener implements Listener {
 
                 PlayerData data = PlayerData.get(player);
                 if(data == null) data = PlayerData.create(player).save();
-                PlayerData finalData = data;
 
                 List<Perk> perks = PerkManager.getPerks();
-                boolean hasAllPerks = perks.stream().allMatch((perk) -> finalData.getUnlockedPerks().contains(perk.getId()));
+                boolean hasAllPerks = true;
+                for(Perk perk : perks)
+                    if(!data.getUnlockedPerks().contains(perk.getId())) {
+                        hasAllPerks = false;
+                        break;
+                    }
 
                 if(hasAllPerks) {
                     player.closeInventory();
@@ -111,14 +117,14 @@ public class InventoryListener implements Listener {
                     return;
                 }
 
-                perks = perks
-                        .stream()
-                        .filter((perk) -> !finalData.getUnlockedPerks().contains(perk.getId()))
-                        .collect(Collectors.toList());
+                List<Perk> missingPerks = new ArrayList<>();
+                for(Perk perk : perks) {
+                    if(!data.getUnlockedPerks().contains(perk.getId())) missingPerks.add(perk);
+                }
 
                 economy.withdrawPlayer(player, price);
-                if(perks.size() == 1) {
-                    Perk perk = perks.get(0);
+                if(missingPerks.size() == 1) {
+                    Perk perk = missingPerks.get(0);
                     perkPlayers.remove(player.getUniqueId());
                     player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                     perk.unlockFor(player);
@@ -130,7 +136,7 @@ public class InventoryListener implements Listener {
                     return;
                 }
 
-                new SpinManager(player, perks, plugin).spin(() -> perkPlayers.remove(player.getUniqueId()));
+                new SpinManager(player, missingPerks, plugin).spin(() -> perkPlayers.remove(player.getUniqueId()));
             }
         }
     }
