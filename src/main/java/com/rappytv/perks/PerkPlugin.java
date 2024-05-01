@@ -5,6 +5,7 @@ import com.rappytv.perks.listeners.DamageListener;
 import com.rappytv.perks.listeners.InventoryListener;
 import com.rappytv.perks.listeners.PlayerListener;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.perks.perks.PerkManager;
 import com.rappytv.perks.perks.boosts.*;
 import com.rappytv.perks.perks.immunity.*;
 import com.rappytv.perks.perks.misc.Glow;
@@ -76,27 +77,27 @@ public class PerkPlugin extends JavaPlugin {
     }
 
     private void registerPerks() {
-        new Glow();
-        new PreventFallDamage();
-        new PreventDrowning();
-        new StopHunger();
-        new NightVision();
-        new FireProtection();
-        new Protection();
-        new KeepInventory();
-        new KeepExperience();
-        new Haste();
-        new ExperienceBoost();
-        new HeartBoost();
-        new SpeedBoost();
-        new JumpBoost();
-        new StrengthBoost();
-        new ZombieImmunity();
-        new SkeletonImmunity();
-        new SpiderImmunity();
-        new CreeperImmunity();
-        new EndermanImmunity();
-        new BlazeImmunity();
-        new GhastImmunity();
+        PerkManager.register(new Glow());
+        PerkManager.register(new PreventFallDamage());
+        PerkManager.register(new PreventDrowning());
+        PerkManager.register(new StopHunger());
+        PerkManager.register(new NightVision());
+        PerkManager.register(new FireProtection());
+        PerkManager.register(new Protection());
+        PerkManager.register(new KeepInventory());
+        PerkManager.register(new KeepExperience());
+        PerkManager.register(new Haste());
+        PerkManager.register(new ExperienceBoost());
+        PerkManager.register(new HeartBoost());
+        PerkManager.register(new SpeedBoost());
+        PerkManager.register(new JumpBoost());
+        PerkManager.register(new StrengthBoost());
+        PerkManager.register(new ZombieImmunity());
+        PerkManager.register(new SkeletonImmunity());
+        PerkManager.register(new SpiderImmunity());
+        PerkManager.register(new CreeperImmunity());
+        PerkManager.register(new EndermanImmunity());
+        PerkManager.register(new BlazeImmunity());
+        PerkManager.register(new GhastImmunity());
     }
 }

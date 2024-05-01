@@ -14,8 +14,6 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public abstract class Perk {
-
-    public static final List<Perk> perks = new ArrayList<>();
     protected static PerkPlugin plugin;
 
     private final String id;
@@ -24,7 +22,6 @@ public abstract class Perk {
     public Perk(String id) {
         this.id = id;
         this.name = plugin.i18n().translate("perks." + id + ".name");
-        perks.add(this);
     }
 
     public static void setPlugin(PerkPlugin plugin) {

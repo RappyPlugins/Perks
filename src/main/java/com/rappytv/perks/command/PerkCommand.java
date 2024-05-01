@@ -3,6 +3,7 @@ package com.rappytv.perks.command;
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.perks.perks.PerkManager;
 import com.rappytv.perks.util.Util;
 import com.rappytv.rylib.RyLib;
 import com.rappytv.rylib.util.I18n;
@@ -13,7 +14,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
 
@@ -25,17 +25,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
     @Override
     public void execute(CommandSender sender, String prefix, String[] args) {
         if(args.length == 0) {
-            if(!(sender instanceof Player player)) {
-                sender.sendMessage(RyLib.get().i18n().translate("onlyPlayer"));
-                return;
-            }
-
-            if(!player.hasPermission("perks.menu")) {
-                player.sendMessage(RyLib.get().i18n().translate("noPermission"));
-                return;
-            }
-
-            Util.openPerkGUI(plugin, player, 0);
+            openMenu(sender);
             return;
         }
         if(args.length < 2) {
@@ -47,67 +37,16 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
             sender.sendMessage(RyLib.get().i18n().translate("playerNotFound"));
             return;
         }
-        if(args[0].equalsIgnoreCase("add")) {
-            if(!sender.hasPermission("perks.manage.add")) {
-                sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
-                return;
-            }
-            if(args.length < 3) {
-                sender.sendMessage(plugin.i18n().translate("enterPerk"));
-                return;
-            }
-
-            Optional<Perk> optionalPerk = Perk.perks.stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
-            if(optionalPerk.isEmpty()) {
-                sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
-                return;
-            }
-            if(optionalPerk.get().isPerkUnlocked(target)) {
-                sender.sendMessage(plugin.i18n().translate(
-                        "perkAlreadyUnlocked",
-                        new I18n.Argument("player", target.getName())
-                ));
-                return;
-            }
-            optionalPerk.get().unlockFor(target);
-            sender.sendMessage(plugin.i18n().translate(
-                    "updatedPerks",
-                    new I18n.Argument("player", target.getName())
-            ));
-        } else if(args[0].equalsIgnoreCase("remove")) {
-            if(!sender.hasPermission("perks.manage.remove")) {
-                sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
-                return;
-            }
-            if(args.length < 3) {
-                sender.sendMessage(plugin.i18n().translate("enterPerk"));
-                return;
-            }
-
-            Optional<Perk> optionalPerk = Perk.perks.stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
-            if(optionalPerk.isEmpty()) {
-                sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
-                return;
-            }
-            if(!optionalPerk.get().isPerkUnlocked(target)) {
-                sender.sendMessage(plugin.i18n().translate(
-                        "perkNotUnlocked",
-                        new I18n.Argument("player", target.getName())
-                ));
-                return;
-            }
-            optionalPerk.get().lockFor(target);
-            sender.sendMessage(plugin.i18n().translate(
-                    "updatedPerks",
-                    new I18n.Argument("player", target.getName())
-            ));
-        } else if(args[0].equalsIgnoreCase("clear")) {
+        if(args[0].equalsIgnoreCase("clear")) {
             if(!sender.hasPermission("perks.manage.clear")) {
                 sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
                 return;
             }
 
-            List<Perk> perks = Perk.perks.stream().filter((p) -> p.isPerkUnlocked(target)).toList();
+            List<Perk> perks = new ArrayList<>();
+            for(Perk perk : PerkManager.getPerks())
+                if(perk.isPerkUnlocked(target)) perks.add(perk);
+
             if(perks.isEmpty()) {
                 sender.sendMessage(plugin.i18n().translate(
                         "perksEmpty",
@@ -120,73 +59,94 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     "updatedPerks",
                     new I18n.Argument("player", target.getName())
             ));
-        } else if(args[0].equalsIgnoreCase("enable")) {
-            if(!sender.hasPermission("perks.manage.enable")) {
-                sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
-                return;
-            }
-            if(args.length < 3) {
-                sender.sendMessage(plugin.i18n().translate("enterPerk"));
-                return;
-            }
-
-            Optional<Perk> optionalPerk = Perk.perks.stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
-            if(optionalPerk.isEmpty()) {
-                sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
-                return;
-            }
-            if(optionalPerk.get().isPerkActive(target)) {
-                sender.sendMessage(plugin.i18n().translate(
-                        "perkAlreadyActive",
-                        new I18n.Argument("player", target.getName())
-                ));
-                return;
-            }
-            optionalPerk.get().addTo(target);
-            sender.sendMessage(plugin.i18n().translate(
-                    "updatedPerks",
-                    new I18n.Argument("player", target.getName())
-            ));
-        } else if(args[0].equalsIgnoreCase("disable")) {
-            if(!sender.hasPermission("perks.manage.disable")) {
-                sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
-                return;
-            }
-            if(args.length < 3) {
-                sender.sendMessage(plugin.i18n().translate("enterPerk"));
-                return;
-            }
-
-            Optional<Perk> optionalPerk = Perk.perks.stream().filter((p -> p.getId().equalsIgnoreCase(args[2]))).findFirst();
-            if(optionalPerk.isEmpty()) {
-                sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
-                return;
-            }
-            if(!optionalPerk.get().isPerkActive(target)) {
-                sender.sendMessage(plugin.i18n().translate(
-                        "perkNotActive",
-                        new I18n.Argument("player", target.getName())
-                ));
-                return;
-            }
-            optionalPerk.get().removeFrom(target);
-            sender.sendMessage(plugin.i18n().translate(
-                    "updatedPerks",
-                    new I18n.Argument("player", target.getName())
-            ));
         } else {
-            if(!(sender instanceof Player player)) {
-                sender.sendMessage(RyLib.get().i18n().translate("onlyPlayer"));
+            if(!sender.hasPermission("perks.manage." + args[0])) {
+                sender.sendMessage(RyLib.get().i18n().translate("noPermission"));
                 return;
             }
-
-            if(!player.hasPermission("perks.menu")) {
-                player.sendMessage(RyLib.get().i18n().translate("noPermission"));
+            if(args.length < 3) {
+                sender.sendMessage(plugin.i18n().translate("enterPerk"));
                 return;
             }
-
-            Util.openPerkGUI(plugin, player, 0);
+            Perk perk = null;
+            for(Perk p : PerkManager.getPerks()) {
+                if(p.getId().equalsIgnoreCase(args[2])) {
+                    perk = p;
+                    break;
+                }
+            }
+            if(perk == null) {
+                sender.sendMessage(RyLib.get().i18n().translate("perkNotFound"));
+                return;
+            }
+            if(args[0].equalsIgnoreCase("add")) {
+                if(perk.isPerkUnlocked(target)) {
+                    sender.sendMessage(plugin.i18n().translate(
+                            "perkAlreadyUnlocked",
+                            new I18n.Argument("player", target.getName())
+                    ));
+                    return;
+                }
+                perk.unlockFor(target);
+                sender.sendMessage(plugin.i18n().translate(
+                        "updatedPerks",
+                        new I18n.Argument("player", target.getName())
+                ));
+            } else if(args[0].equalsIgnoreCase("remove")) {
+                if(!perk.isPerkUnlocked(target)) {
+                    sender.sendMessage(plugin.i18n().translate(
+                            "perkNotUnlocked",
+                            new I18n.Argument("player", target.getName())
+                    ));
+                    return;
+                }
+                perk.lockFor(target);
+                sender.sendMessage(plugin.i18n().translate(
+                        "updatedPerks",
+                        new I18n.Argument("player", target.getName())
+                ));
+            } else if(args[0].equalsIgnoreCase("enable")) {
+                if(perk.isPerkActive(target)) {
+                    sender.sendMessage(plugin.i18n().translate(
+                            "perkAlreadyActive",
+                            new I18n.Argument("player", target.getName())
+                    ));
+                    return;
+                }
+                perk.addTo(target);
+                sender.sendMessage(plugin.i18n().translate(
+                        "updatedPerks",
+                        new I18n.Argument("player", target.getName())
+                ));
+            } else if(args[0].equalsIgnoreCase("disable")) {
+                if(!perk.isPerkActive(target)) {
+                    sender.sendMessage(plugin.i18n().translate(
+                            "perkNotActive",
+                            new I18n.Argument("player", target.getName())
+                    ));
+                    return;
+                }
+                perk.removeFrom(target);
+                sender.sendMessage(plugin.i18n().translate(
+                        "updatedPerks",
+                        new I18n.Argument("player", target.getName())
+                ));
+            } else openMenu(sender);
         }
+    }
+
+    private void openMenu(CommandSender sender) {
+        if(!(sender instanceof Player player)) {
+            sender.sendMessage(RyLib.get().i18n().translate("onlyPlayer"));
+            return;
+        }
+
+        if(!player.hasPermission("perks.menu")) {
+            player.sendMessage(RyLib.get().i18n().translate("noPermission"));
+            return;
+        }
+
+        Util.openPerkGUI(plugin, player, 0);
     }
 
     @SuppressWarnings("deprecation")
@@ -219,12 +179,12 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
             if(data == null) return null;
 
             if(add) {
-                for(Perk perk : Perk.perks) {
+                for(Perk perk : PerkManager.getPerks()) {
                     if(!data.getActivePerks().contains(perk.getId()))
                         list.add(perk.getId());
                 }
             } else if(remove || enable || disable) {
-                for(Perk perk : Perk.perks) {
+                for(Perk perk : PerkManager.getPerks()) {
                     if(data.getActivePerks().contains(perk.getId()))
                         list.add(perk.getId());
                 }

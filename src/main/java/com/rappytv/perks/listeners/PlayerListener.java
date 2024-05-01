@@ -3,6 +3,7 @@ package com.rappytv.perks.listeners;
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.perks.perks.PerkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +29,7 @@ public class PlayerListener implements Listener {
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) return;
 
-        for(Perk perk : Perk.perks) {
+        for(Perk perk : PerkManager.getPerks()) {
             if(data.getActivePerks().contains(perk.getId()))
                 perk.onEnable(player);
         }
@@ -55,7 +56,7 @@ public class PlayerListener implements Listener {
         if(data == null) return;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            for(Perk perk : Perk.perks) {
+            for(Perk perk : PerkManager.getPerks()) {
                 if(data.getActivePerks().contains(perk.getId()))
                     perk.onEnable(player);
             }

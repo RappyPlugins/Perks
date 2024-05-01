@@ -4,6 +4,7 @@ import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
 import com.rappytv.perks.listeners.InventoryListener;
 import com.rappytv.perks.perks.Perk;
+import com.rappytv.perks.perks.PerkManager;
 import com.rappytv.rylib.util.I18n;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -30,8 +31,8 @@ public class Util {
         perkIndex += page * 7;
         for(int i = 0; i < inventory.getSize(); i++) {
             if(i > 9 && i < 17) {
-                if(Perk.perks.size() > perkIndex) {
-                    Perk perk = Perk.perks.get(perkIndex);
+                if(PerkManager.getPerks().size() > perkIndex) {
+                    Perk perk = PerkManager.getPerks().get(perkIndex);
                     if(perk == null) continue;
                     inventory.setItem(i, perk.getItem());
                     inventory.setItem(i + 9, perk.getPane(player));
@@ -44,8 +45,12 @@ public class Util {
                 arrow.setItemMeta(meta);
                 inventory.setItem(i, arrow);
             } else if(i == 31) {
-                final PlayerData finalData = data;
-                boolean hasAllPerks = Perk.perks.stream().allMatch((perk -> finalData.getUnlockedPerks().contains(perk.getId())));
+                boolean hasAllPerks = true;
+                for(Perk perk : PerkManager.getPerks())
+                    if(!data.getUnlockedPerks().contains(perk.getId())) {
+                        hasAllPerks = false;
+                        break;
+                    }
 
                 Economy economy = plugin.getEconomy();
 
