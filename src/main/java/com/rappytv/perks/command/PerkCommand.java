@@ -54,7 +54,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                 ));
             }
             for(Perk perk : perks)
-                perk.lockFor(target);
+                perk.lockFor(target, true);
             sender.sendMessage(plugin.i18n().translate(
                     "updatedPerks",
                     new I18n.Argument("player", target.getName())
@@ -87,7 +87,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     ));
                     return;
                 }
-                perk.unlockFor(target);
+                perk.unlockFor(target, true);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
@@ -100,7 +100,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     ));
                     return;
                 }
-                perk.lockFor(target);
+                perk.lockFor(target, true);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
@@ -113,7 +113,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     ));
                     return;
                 }
-                perk.addTo(target);
+                perk.addTo(target, true);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())
@@ -126,7 +126,7 @@ public class PerkCommand extends com.rappytv.rylib.util.Command<PerkPlugin> {
                     ));
                     return;
                 }
-                perk.removeFrom(target);
+                perk.removeFrom(target, true);
                 sender.sendMessage(plugin.i18n().translate(
                         "updatedPerks",
                         new I18n.Argument("player", target.getName())

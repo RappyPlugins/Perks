@@ -2,6 +2,11 @@ package com.rappytv.perks.perks;
 
 import com.rappytv.perks.PerkPlugin;
 import com.rappytv.perks.config.PlayerData;
+import com.rappytv.perks.events.PerkDisableEvent;
+import com.rappytv.perks.events.PerkEnableEvent;
+import com.rappytv.perks.events.PerkLockEvent;
+import com.rappytv.perks.events.PerkUnlockEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -41,6 +46,14 @@ public abstract class Perk {
     public abstract void onDisable(Player player);
 
     public void addTo(OfflinePlayer player) {
+        addTo(player, false);
+    }
+
+    public void addTo(OfflinePlayer player, boolean force) {
+        PerkEnableEvent event = new PerkEnableEvent(player, this, force);
+        Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled()) return;
+
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) {
             data = PlayerData.create(player);
@@ -51,6 +64,14 @@ public abstract class Perk {
     }
 
     public void removeFrom(OfflinePlayer player) {
+        removeFrom(player, false);
+    }
+
+    public void removeFrom(OfflinePlayer player, boolean force) {
+        PerkDisableEvent event = new PerkDisableEvent(player, this, force);
+        Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled()) return;
+
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null) {
             data = PlayerData.create(player);
@@ -61,6 +82,14 @@ public abstract class Perk {
     }
 
     public void unlockFor(OfflinePlayer player) {
+        unlockFor(player, false);
+    }
+
+    public void unlockFor(OfflinePlayer player, boolean force) {
+        PerkUnlockEvent event = new PerkUnlockEvent(player, this, force);
+        Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled()) return;
+
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null)
             data = PlayerData.create(player);
@@ -69,6 +98,14 @@ public abstract class Perk {
     }
 
     public void lockFor(OfflinePlayer player) {
+        lockFor(player, false);
+    }
+
+    public void lockFor(OfflinePlayer player, boolean force) {
+        PerkLockEvent event = new PerkLockEvent(player, this, force);
+        Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled()) return;
+
         PlayerData data = PlayerData.get(player.getUniqueId());
         if(data == null)
             data = PlayerData.create(player);
