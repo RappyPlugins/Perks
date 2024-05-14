@@ -104,7 +104,8 @@ public class SpinManager {
                         ));
                         runnable.run();
                         cancel();
-                    } else player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                    } else if(player.getOpenInventory().getTopInventory() == inventory)
+                        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                 }
             }
         }.runTaskTimer(plugin, 0, 1);
